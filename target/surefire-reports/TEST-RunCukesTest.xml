@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="5" failures="0" name="RunCukesTest" time="32.342" errors="0" skipped="0">
+<testsuite tests="5" failures="0" name="RunCukesTest" time="30.727" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_221\jre\bin"/>
@@ -65,9 +65,9 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="Login" name="I login with invalid credential" time="5.649"/>
-  <testcase classname="Login" name="I login with valid credential" time="5.415"/>
-  <testcase classname="Login" name="I login with valid credential and log out" time="5.192"/>
-  <testcase classname="Infinite Scroll" name="I scroll to the bottom of the page twice" time="10.025"/>
-  <testcase classname="Key Presses" name="I scroll to the bottom of the page twice" time="6.061"/>
+  <testcase classname="Login" name="I login with invalid credential" time="5.7"/>
+  <testcase classname="Login" name="I login with valid credential" time="4.536"/>
+  <testcase classname="Login" name="I login with valid credential and log out" time="6.844"/>
+  <testcase classname="Infinite Scroll" name="I scroll to the bottom of the page twice" time="9.602"/>
+  <testcase classname="Key Presses" name="I scroll to the bottom of the page twice" time="4.045"/>
 </testsuite>

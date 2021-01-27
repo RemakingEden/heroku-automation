@@ -24,7 +24,7 @@ public class stepdefs {
 
     @Before
     public void setup(){
-        String pathToChromeDriver = "C:\\Users\\joss.sparkes\\Documents\\Selenium\\chromedriver.exe";
+        String pathToChromeDriver = "src\\test\\resource\\driver\\chromedriver.exe";
         System.setProperty("webdriver.chrome.driver", pathToChromeDriver);
 
         driver = new ChromeDriver();
