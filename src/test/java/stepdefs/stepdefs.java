@@ -41,7 +41,6 @@ public class stepdefs {
         WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(arg2)));
         driver.findElement(By.id(arg2)).sendKeys(arg1);
-        TimeUnit.SECONDS.sleep(2);
     }
 
     @Given("^I click on element having class \"([^\"]*)\"$")
@@ -49,7 +48,6 @@ public class stepdefs {
         WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className(arg1)));
         driver.findElement(By.className(arg1)).click();
-        TimeUnit.SECONDS.sleep(2);
 
     }
 
@@ -120,7 +118,25 @@ public class stepdefs {
             Assert.assertEquals("Infinite Scroll", header);
     }
 
-    @After
+    @When("^I input an \"([^\"]*)\" key into the input field having id \"([^\"]*)\"$")
+    public void i_input_an_key_into_the_input_field_having_id(String arg1, String arg2) throws Exception {
+        By selection = By.id(arg2);
+        (new WebDriverWait(driver, 30)).until(
+                ExpectedConditions.visibilityOfElementLocated(selection));
+        driver.findElement(By.id(arg2)).sendKeys(arg1);
+    }
+
+    @Then("^I see the input \"([^\"]*)\" shown on the element having id \"([^\"]*)\"$")
+    public void i_see_the_input_shown_on_the_screen(String arg1, String arg2) throws Exception {
+        By selection = By.id(arg2);
+        (new WebDriverWait(driver, 30)).until(
+                ExpectedConditions.visibilityOfElementLocated(selection));
+        String result = driver.findElement(By.id(arg2)).getText();
+        if(!result.isEmpty())
+            Assert.assertEquals(String.format("You entered: %s", arg1.toUpperCase()), result);
+    }
+
+        @After
     public void teardown(){
         driver.close();
     }
