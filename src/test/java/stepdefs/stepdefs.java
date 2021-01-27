@@ -10,6 +10,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -17,7 +18,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
-public class scenario1 {
+public class stepdefs {
 
     private WebDriver driver;
 
@@ -88,6 +89,35 @@ public class scenario1 {
         if(!msg.isEmpty())
             msg = msg.split("\n")[0].trim();
         Assert.assertEquals("You logged out of the secure area!", msg);
+    }
+
+
+    @Given("^I scroll to the bottom of the page$")
+    public void i_scroll_to_the_bottom_of_the_page() throws Exception {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,500)", "");
+    }
+
+    @Given("^I wait for \"([^\"]*)\" seconds$")
+    public void i_wait_for_seconds(String arg1) throws Exception {
+        TimeUnit.SECONDS.sleep(2);
+    }
+
+    @When("^I scroll to the top of the page$")
+    public void i_scroll_back_to_the_top_of_the_page() throws Exception {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,-1000)", "");
+    }
+
+    @Then("^I should see text stating \"([^\"]*)\"$")
+    public void i_should_see_text_stating(String arg1) throws Exception {
+
+        By selection = By.className("example");
+        (new WebDriverWait(driver, 30)).until(
+                ExpectedConditions.visibilityOfElementLocated(selection));
+        String header = driver.findElement(By.tagName("h3")).getText();
+        if(!header.isEmpty())
+            Assert.assertEquals("Infinite Scroll", header);
     }
 
     @After
