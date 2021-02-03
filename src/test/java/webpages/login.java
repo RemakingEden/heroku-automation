@@ -2,11 +2,15 @@ package webpages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.concurrent.TimeUnit;
+
 public class login {
+
     WebDriver driver;
 
     public login(WebDriver driver) {
@@ -38,12 +42,18 @@ public class login {
     private WebElement loginSubmitButton;
 
     //Constructor
-    public login(WebDriver driver){
-        this.driver=driver;
-        driver.get(PAGE_URL);
-        //Initialise elements
-        PageFactory.initElements(driver, this);
+    public void setup(){
+        String pathToChromeDriver = "src\\test\\resource\\driver\\chromedriver.exe";
+        System.setProperty("webdriver.chrome.driver", pathToChromeDriver);
+
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
     }
+
+     public void goToLoginPage(){
+        driver.get(PAGE_URL);
+     }
 
      public void clickOnLoginSubmitButton(){
         loginSubmitButton.click();

@@ -1,5 +1,7 @@
 package stepdefs;
 
+import webpages.login;
+
 import cucumber.api.PendingException;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -7,7 +9,6 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
-import org.junit.Test;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -24,23 +25,30 @@ public class stepdefs {
 
     @Before
     public void setup(){
-        String pathToChromeDriver = "src\\test\\resource\\driver\\chromedriver.exe";
-        System.setProperty("webdriver.chrome.driver", pathToChromeDriver);
+        //String pathToChromeDriver = "src\\test\\resource\\driver\\chromedriver.exe";
+        //System.setProperty("webdriver.chrome.driver", pathToChromeDriver);
 
-        driver = new ChromeDriver();
-
+        //driver = new ChromeDriver();
+        //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        new login(driver).setup();
     }
 
     @Given("^I navigate to \"([^\"]*)\"$")
     public void i_navigate_to(String arg1) throws Exception {
-        driver.get(arg1);
+        //driver.get(arg1);
+        new login(driver).goToLoginPage();
+
     }
 
     @Given("^I enter \"([^\"]*)\" into input field having id \"([^\"]*)\"$")
     public void i_enter_into_input_field_having_id(String arg1, String arg2) throws Exception {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(arg2)));
-        driver.findElement(By.id(arg2)).sendKeys(arg1);
+        //WebDriverWait wait = new WebDriverWait(driver, 30);
+       // wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(arg2)));
+        //driver.findElement(By.id(arg2)).sendKeys(arg1);
+
+        new login(driver).setUsernameField(arg1);
+        Thread.sleep(500);
+
     }
 
     @Given("^I click on element having class \"([^\"]*)\"$")
