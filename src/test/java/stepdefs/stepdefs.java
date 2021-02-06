@@ -1,20 +1,16 @@
 package stepdefs;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
-import org.junit.Test;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
@@ -30,7 +26,6 @@ public class stepdefs {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-
     }
 
     @Given("^I navigate to \"([^\"]*)\"$")
@@ -46,7 +41,6 @@ public class stepdefs {
     @Given("^I click on element having class \"([^\"]*)\"$")
     public void i_click_on_element_having_class(String arg1) throws Exception {
         driver.findElement(By.className(arg1)).click();
-
     }
 
     @Then("^I should not get logged-in$")
@@ -83,8 +77,8 @@ public class stepdefs {
     }
 
     @Given("^I wait for \"([^\"]*)\" seconds$")
-    public void i_wait_for_seconds(String arg1) throws Exception {
-        TimeUnit.SECONDS.sleep(2);
+    public void i_wait_for_seconds(Integer arg1) throws Exception {
+        TimeUnit.SECONDS.sleep(arg1);
     }
 
     @When("^I scroll to the top of the page$")
@@ -97,7 +91,7 @@ public class stepdefs {
     public void i_should_see_text_stating(String arg1) throws Exception {
         String header = driver.findElement(By.tagName("h3")).getText();
         if(!header.isEmpty())
-            Assert.assertEquals("Infinite Scroll", header);
+            Assert.assertEquals(arg1, header);
     }
 
     @When("^I input an \"([^\"]*)\" key into the input field having id \"([^\"]*)\"$")
