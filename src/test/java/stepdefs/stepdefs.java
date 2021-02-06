@@ -11,6 +11,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
@@ -59,8 +61,6 @@ public class stepdefs {
         Assert.assertEquals("You logged into a secure area!", msg);
     }
 
-
-
     @Then("^I should get logged-out$")
     public void i_should_get_logged_out() throws Exception {
         String msg = driver.findElement(By.id("flash")).getText();
@@ -69,16 +69,17 @@ public class stepdefs {
         Assert.assertEquals("You logged out of the secure area!", msg);
     }
 
-
     @Given("^I scroll to the bottom of the page$")
     public void i_scroll_to_the_bottom_of_the_page() throws Exception {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,500)", "");
     }
 
-    @Given("^I wait for \"([^\"]*)\" seconds$")
-    public void i_wait_for_seconds(Integer arg1) throws Exception {
-        TimeUnit.SECONDS.sleep(arg1);
+    @Given("I wait until new text is loaded")
+    public void i_wait_until_new_text_is_loaded() throws Exception {
+        WebDriverWait wait = new WebDriverWait(driver, 5000L);
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.tagName("small"))));
+        wait.until(ExpectedConditions.invisibilityOf(driver.findElement(By.tagName("small"))));
     }
 
     @When("^I scroll to the top of the page$")
@@ -106,7 +107,7 @@ public class stepdefs {
             Assert.assertEquals(String.format("You entered: %s", arg1.toUpperCase()), result);
     }
 
-        @After
+    @After
     public void teardown(){
         driver.close();
     }
