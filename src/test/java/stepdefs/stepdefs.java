@@ -81,7 +81,7 @@ public class stepdefs {
 
     @Given("I wait until new text is loaded")
     public void i_wait_until_new_text_is_loaded() throws Exception {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, 20);
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.tagName("small"))));
         wait.until(ExpectedConditions.invisibilityOf(driver.findElement(By.tagName("small"))));
     }
