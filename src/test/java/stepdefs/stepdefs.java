@@ -28,6 +28,8 @@ public class stepdefs {
         System.setProperty("webdriver.chrome.driver", pathToChromeDriver);
 
         driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
 
     }
 
@@ -38,25 +40,17 @@ public class stepdefs {
 
     @Given("^I enter \"([^\"]*)\" into input field having id \"([^\"]*)\"$")
     public void i_enter_into_input_field_having_id(String arg1, String arg2) throws Exception {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(arg2)));
         driver.findElement(By.id(arg2)).sendKeys(arg1);
     }
 
     @Given("^I click on element having class \"([^\"]*)\"$")
     public void i_click_on_element_having_class(String arg1) throws Exception {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className(arg1)));
         driver.findElement(By.className(arg1)).click();
 
     }
 
     @Then("^I should not get logged-in$")
     public void i_should_not_get_logged_in() throws Exception {
-
-        By selection = By.id("flash");
-        (new WebDriverWait(driver, 30)).until(
-                ExpectedConditions.visibilityOfElementLocated(selection));
         String msg = driver.findElement(By.id("flash")).getText();
         if(!msg.isEmpty())
             msg = msg.split("\n")[0].trim();
@@ -65,10 +59,6 @@ public class stepdefs {
 
     @Then("^I should get logged-in$")
     public void i_should_get_logged_in() throws Exception {
-
-        By selection = By.id("flash");
-        (new WebDriverWait(driver, 30)).until(
-                ExpectedConditions.visibilityOfElementLocated(selection));
         String msg = driver.findElement(By.id("flash")).getText();
         if(!msg.isEmpty())
             msg = msg.split("\n")[0].trim();
@@ -79,10 +69,6 @@ public class stepdefs {
 
     @Then("^I should get logged-out$")
     public void i_should_get_logged_out() throws Exception {
-
-        By selection = By.id("flash");
-        (new WebDriverWait(driver, 30)).until(
-                ExpectedConditions.visibilityOfElementLocated(selection));
         String msg = driver.findElement(By.id("flash")).getText();
         if(!msg.isEmpty())
             msg = msg.split("\n")[0].trim();
@@ -109,10 +95,6 @@ public class stepdefs {
 
     @Then("^I should see text stating \"([^\"]*)\"$")
     public void i_should_see_text_stating(String arg1) throws Exception {
-
-        By selection = By.className("example");
-        (new WebDriverWait(driver, 30)).until(
-                ExpectedConditions.visibilityOfElementLocated(selection));
         String header = driver.findElement(By.tagName("h3")).getText();
         if(!header.isEmpty())
             Assert.assertEquals("Infinite Scroll", header);
@@ -120,17 +102,11 @@ public class stepdefs {
 
     @When("^I input an \"([^\"]*)\" key into the input field having id \"([^\"]*)\"$")
     public void i_input_an_key_into_the_input_field_having_id(String arg1, String arg2) throws Exception {
-        By selection = By.id(arg2);
-        (new WebDriverWait(driver, 30)).until(
-                ExpectedConditions.visibilityOfElementLocated(selection));
         driver.findElement(By.id(arg2)).sendKeys(arg1);
     }
 
     @Then("^I see the input \"([^\"]*)\" shown on the element having id \"([^\"]*)\"$")
     public void i_see_the_input_shown_on_the_screen(String arg1, String arg2) throws Exception {
-        By selection = By.id(arg2);
-        (new WebDriverWait(driver, 30)).until(
-                ExpectedConditions.visibilityOfElementLocated(selection));
         String result = driver.findElement(By.id(arg2)).getText();
         if(!result.isEmpty())
             Assert.assertEquals(String.format("You entered: %s", arg1.toUpperCase()), result);
