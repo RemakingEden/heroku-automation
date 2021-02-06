@@ -11,6 +11,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -25,7 +26,10 @@ public class stepdefs {
         String pathToChromeDriver = "src\\test\\resource\\driver\\chromedriver.exe";
         System.setProperty("webdriver.chrome.driver", pathToChromeDriver);
 
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+
+        driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
     }
@@ -77,7 +81,7 @@ public class stepdefs {
 
     @Given("I wait until new text is loaded")
     public void i_wait_until_new_text_is_loaded() throws Exception {
-        WebDriverWait wait = new WebDriverWait(driver, 5000L);
+        WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.tagName("small"))));
         wait.until(ExpectedConditions.invisibilityOf(driver.findElement(By.tagName("small"))));
     }
